@@ -1,0 +1,10 @@
+.rock {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+
+  border: solid 1px black;
+  border-radius: 50%;
+
+  background-color: black;
+}

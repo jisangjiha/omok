@@ -1,5 +1,5 @@
 import styles from "./Board.module.css";
-import Rock from "./rock";
+import Stone from "./Stone";
 
 export default function Board() {
   return (
@@ -8,7 +8,7 @@ export default function Board() {
         <div key={index} className={styles.grid}>
           {Array.from({ length: 15 }).map((_, index) => (
             <div key={index} className={styles.rockGrid}>
-              {/*  <Rock />*/}
+              {/*  <Stone />*/}
               {Array.from({ length: 4 }).map((_, index) => (
                 <div key={index}></div>
               ))}

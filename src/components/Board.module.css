@@ -5,13 +5,13 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(15, 1fr);
+  grid-template-columns: repeat(var(--col-count), 1fr);
 }
 
 .rockGrid {
   display: grid;
-  grid-template-columns: 25px 25px;
-  grid-template-rows: 25px 25px;
+  grid-template-columns: var(--col-size) var(--col-size);
+  grid-template-rows: var(--row-size) var(--row-size);
 
   border: dashed 1px rgba(0, 0, 0, 0.2);
 

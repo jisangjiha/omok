@@ -1,0 +1,31 @@
+import { useState } from "react";
+import styles from "./BoardCustom.module.css";
+import Board from "./Board";
+
+export default function BoardCustom() {
+  const [rowSize, setRowSize] = useState(25);
+  const [columnSize, setColumnSize] = useState(25);
+
+  return (
+    <>
+      <div className={styles.boardCustom}>
+        <input
+          className={styles.inputBox}
+          value={rowSize}
+          onChange={(e) => {
+            setRowSize(Number(e.target.value));
+          }}
+        />
+        <div>x</div>
+        <input
+          className={styles.inputBox}
+          value={columnSize}
+          onChange={(e) => {
+            setColumnSize(Number(e.target.value));
+          }}
+        />
+      </div>
+      <Board rowCount={rowSize} colCount={columnSize} />
+    </>
+  );
+}

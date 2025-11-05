@@ -2,15 +2,15 @@ import type { CSSProperties } from "react";
 import styles from "./Board.module.css";
 
 interface BoardProps {
-  rowCount?: number;
-  colCount?: number;
+  rowCount: number;
+  colCount: number;
   rowSize?: number;
   colSize?: number;
 }
 
 export default function Board({
-  rowCount = 15,
-  colCount = 15,
+  rowCount,
+  colCount,
   rowSize = 25,
   colSize = 25,
 }: BoardProps) {

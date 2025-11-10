@@ -3,8 +3,8 @@ import styles from "./BoardCustom.module.css";
 import Board from "./Board";
 
 export default function BoardCustom() {
-  const [rowSize, setRowSize] = useState(25);
-  const [columnSize, setColumnSize] = useState(25);
+  const [rowSize, setRowSize] = useState(15);
+  const [columnSize, setColumnSize] = useState(15);
 
   return (
     <>

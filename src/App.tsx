@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <BoardCustom />
-      <Board />
+      <Board rowCount={0} colCount={0} />
     </>
   );
 }

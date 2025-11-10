@@ -1,0 +1,13 @@
+.boardCustom {
+  margin: 16px 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputBox {
+  width: 50px;
+  height: 25px;
+}

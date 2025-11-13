@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import styles from "./Board.module.css";
 
 interface BoardProps {
@@ -14,6 +14,10 @@ export default function Board({
   rowSize = 25,
   colSize = 25,
 }: BoardProps) {
+  const addStone = (rowIndex: number, colIndex: number) => {
+    console.log(`row: ${rowIndex}, col: ${colIndex}`);
+  };
+
   return (
     <div
       className={styles.board}
@@ -25,10 +29,14 @@ export default function Board({
         } as CSSProperties
       }
     >
-      {Array.from({ length: rowCount }).map((_, index) => (
-        <div key={index} className={styles.grid}>
-          {Array.from({ length: colCount }).map((_, index) => (
-            <div key={index} className={styles.rockGrid}>
+      {Array.from({ length: rowCount }).map((_, rowIndex) => (
+        <div key={rowIndex} className={styles.grid}>
+          {Array.from({ length: colCount }).map((_, colIndex) => (
+            <div
+              key={colIndex}
+              className={styles.rockGrid}
+              onClick={() => addStone(rowIndex, colIndex)}
+            >
               {Array.from({ length: 4 }).map((_, index) => (
                 <div key={index}></div>
               ))}

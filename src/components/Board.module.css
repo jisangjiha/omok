@@ -12,7 +12,7 @@
   grid-template-columns: var(--col-size) var(--col-size);
   grid-template-rows: var(--row-size) var(--row-size);
 
-  border: dashed 1px rgba(0, 0, 0, 0.2);
+  /* border: dashed 1px rgba(0, 0, 0, 0.2); */
 
   --border-style: solid 1px black;
 
@@ -28,4 +28,20 @@
   & div:nth-child(3) {
     border-right: var(--border-style);
   }
+}
+
+.stone {
+  border-radius: 50%;
+  width: var(--col-size);
+  height: var(--row-size);
+  transform: translate(50%, 50%);
+}
+
+.stone.black {
+  background-color: black;
+}
+
+.stone.white {
+  background-color: white;
+  border: solid 1px black;
 }

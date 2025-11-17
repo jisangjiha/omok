@@ -1,17 +1,17 @@
-import { useState } from "react";
-import styles from "./BoardCustom.module.css";
-import Board from "./Board";
+import { useState } from 'react';
+import styles from './BoardCustom.module.css';
+import Board from './Board';
 
 export default function BoardCustom() {
   const [rowSize, setRowSize] = useState(15);
   const [columnSize, setColumnSize] = useState(15);
-  const [turnUser, setTurnUSer] = useState("흑");
+  const [turnUser, setTurnUSer] = useState('흑');
 
   const handleTurnUser = () => {
-    if (turnUser === "흑") {
-      setTurnUSer("백");
+    if (turnUser === '흑') {
+      setTurnUSer('백');
     } else {
-      setTurnUSer("흑");
+      setTurnUSer('흑');
     }
   };
 
@@ -38,7 +38,27 @@ export default function BoardCustom() {
         <button onClick={handleTurnUser}>돌 놓기</button>
         <div>turn: {turnUser}</div>
       </div>
-      <Board rowCount={rowSize} colCount={columnSize} />
+      <Board
+        rowCount={rowSize}
+        colCount={columnSize}
+        stones={[
+          {
+            row: 0,
+            col: 0,
+            color: 'black',
+          },
+          {
+            row: 0,
+            col: 1,
+            color: 'white',
+          },
+          {
+            row: 1,
+            col: 1,
+            color: 'black',
+          },
+        ]}
+      />
     </>
   );
 }

@@ -1,11 +1,13 @@
 import { Fragment, type CSSProperties } from 'react';
 import styles from './Board.module.css';
+import type { Color } from '../types';
 
 interface BoardProps {
   rowCount: number;
   colCount: number;
   rowSize?: number;
   colSize?: number;
+  stones: Array<{ row: number; col: number; color: Color }>;
 }
 
 export default function Board({
@@ -13,6 +15,7 @@ export default function Board({
   colCount,
   rowSize = 25,
   colSize = 25,
+  stones,
 }: BoardProps) {
   const addStone = (rowIndex: number, colIndex: number) => {
     console.log(`row: ${rowIndex}, col: ${colIndex}`);
@@ -51,6 +54,23 @@ export default function Board({
             </div>
           ))}
         </Fragment>
+      ))}
+      {stones.map((stone, index) => (
+        <div
+          key={index}
+          className={[
+            styles.stone,
+            stone.color === 'black' ? styles.black : styles.white,
+          ].join(' ')}
+          style={{
+            gridArea: [
+              stone.row + 1,
+              stone.col + 1,
+              stone.row + 2,
+              stone.col + 2,
+            ].join('/'),
+          }}
+        />
       ))}
     </div>
   );

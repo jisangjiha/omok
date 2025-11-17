@@ -1,5 +1,5 @@
-import { type CSSProperties } from "react";
-import styles from "./Board.module.css";
+import { Fragment, type CSSProperties } from 'react';
+import styles from './Board.module.css';
 
 interface BoardProps {
   rowCount: number;
@@ -23,26 +23,34 @@ export default function Board({
       className={styles.board}
       style={
         {
-          "--col-count": colCount,
-          "--row-size": `${rowSize}px`,
-          "--col-size": `${colSize}px`,
+          '--col-count': colCount,
+          '--row-size': `${rowSize}px`,
+          '--col-size': `${colSize}px`,
         } as CSSProperties
       }
     >
       {Array.from({ length: rowCount }).map((_, rowIndex) => (
-        <div key={rowIndex} className={styles.grid}>
+        <Fragment key={rowIndex}>
           {Array.from({ length: colCount }).map((_, colIndex) => (
             <div
               key={colIndex}
               className={styles.rockGrid}
               onClick={() => addStone(rowIndex, colIndex)}
+              style={{
+                gridArea: [
+                  rowIndex + 1,
+                  colIndex + 1,
+                  rowIndex + 2,
+                  colIndex + 2,
+                ].join('/'),
+              }}
             >
               {Array.from({ length: 4 }).map((_, index) => (
                 <div key={index}></div>
               ))}
             </div>
           ))}
-        </div>
+        </Fragment>
       ))}
     </div>
   );

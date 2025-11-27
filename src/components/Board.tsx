@@ -1,6 +1,7 @@
 import { Fragment, type CSSProperties } from "react";
 import styles from "./Board.module.css";
 import type { Color } from "../types";
+import Stone from "./Stone";
 
 interface BoardProps {
   rowCount: number;
@@ -8,6 +9,7 @@ interface BoardProps {
   rowSize?: number;
   colSize?: number;
   stones: Array<{ row: number; col: number; color: Color }>;
+  stoneColor: string;
 }
 
 export default function Board({
@@ -16,9 +18,27 @@ export default function Board({
   rowSize = 25, // 행 크기(px)
   colSize = 25, // 열 크기(px)
   stones,
+  stoneColor,
 }: BoardProps) {
   const addStone = (rowIndex: number, colIndex: number) => {
     console.log(`row: ${rowIndex}, col: ${colIndex}`);
+    <>
+      <div
+        className={[
+          styles.stone,
+          stoneColor === "black" ? styles.black : styles.white,
+        ].join(" ")}
+        style={{
+          gridArea: [
+            rowIndex + 1,
+            colIndex + 1,
+            rowIndex + 2,
+            colIndex + 2,
+          ].join("/"),
+        }}
+      />
+      ;<div>dhodhodhdo</div>
+    </>;
   };
 
   return (

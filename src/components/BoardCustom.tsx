@@ -8,13 +8,13 @@ export default function BoardCustom() {
   const [rowCount, setRowCount] = useState(15);
   const [columnCount, setColumnCount] = useState(15);
   // 현재 턴의 사용자 돌 색 표시
-  const [turnUser, setTurnUSer] = useState("흑");
+  const [turnUser, setTurnUSer] = useState("black");
 
   const handleTurnUser = () => {
-    if (turnUser === "흑") {
-      setTurnUSer("백");
+    if (turnUser === "black") {
+      setTurnUSer("white");
     } else {
-      setTurnUSer("흑");
+      setTurnUSer("black");
     }
   };
 
@@ -61,6 +61,7 @@ export default function BoardCustom() {
             color: "black",
           },
         ]}
+        stoneColor={turnUser}
       />
     </>
   );

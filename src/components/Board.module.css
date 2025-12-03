@@ -31,10 +31,12 @@
 }
 
 .stone {
-  border-radius: 50%;
+  display: grid;
   width: var(--col-size);
   height: var(--row-size);
+
   transform: translate(50%, 50%);
+  border-radius: 50%;
 }
 
 .stone.black {

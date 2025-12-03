@@ -1,7 +1,6 @@
 import { Fragment, type CSSProperties } from "react";
 import styles from "./Board.module.css";
 import type { Color } from "../types";
-import Stone from "./Stone";
 
 interface BoardProps {
   rowCount: number;
@@ -9,7 +8,8 @@ interface BoardProps {
   rowSize?: number;
   colSize?: number;
   stones: Array<{ row: number; col: number; color: Color }>;
-  stoneColor: string;
+  setStones: React.Dispatch<React.SetStateAction<typeof stones>>;
+  color: Color;
 }
 
 export default function Board({
@@ -18,28 +18,15 @@ export default function Board({
   rowSize = 25, // 행 크기(px)
   colSize = 25, // 열 크기(px)
   stones,
-  stoneColor,
+  setStones,
+  color,
 }: BoardProps) {
-  const addStone = (rowIndex: number, colIndex: number) => {
-    console.log(`row: ${rowIndex}, col: ${colIndex}`);
-    <>
-      <div
-        className={[
-          styles.stone,
-          stoneColor === "black" ? styles.black : styles.white,
-        ].join(" ")}
-        style={{
-          gridArea: [
-            rowIndex + 1,
-            colIndex + 1,
-            rowIndex + 2,
-            colIndex + 2,
-          ].join("/"),
-        }}
-      />
-      ;<div>dhodhodhdo</div>
-    </>;
-  };
+  /**
+  function addStone(rowIndex: number, colIndex: number, color: Color) {
+    stones = [...stones, { row: rowIndex, col: colIndex, color: color }];
+    console.log(stones);
+  }
+  */
 
   return (
     <div
@@ -59,7 +46,12 @@ export default function Board({
             <div
               key={colIndex}
               className={styles.rockGrid}
-              onClick={() => addStone(rowIndex, colIndex)}
+              onClick={() =>
+                setStones((prev: never) => [
+                  ...prev,
+                  { row: rowIndex, col: colIndex, color },
+                ])
+              }
               // CSS Grid에서 칸이 배치될 위치를 grid로 지정
               style={{
                 gridArea: [

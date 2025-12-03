@@ -1,14 +1,14 @@
 import { Fragment, type CSSProperties } from "react";
 import styles from "./Board.module.css";
-import type { Color } from "../types";
+import type { Color, Stone } from "../types";
 
 interface BoardProps {
   rowCount: number;
   colCount: number;
   rowSize?: number;
   colSize?: number;
-  stones: Array<{ row: number; col: number; color: Color }>;
-  setStones: React.Dispatch<React.SetStateAction<typeof stones>>;
+  stones: Stone[];
+  setStones: React.Dispatch<React.SetStateAction<Stone[]>>;
   color: Color;
 }
 
@@ -28,6 +28,10 @@ export default function Board({
   }
   */
 
+  function addStone(rowIndex: number, colIndex: number, color: Color) {
+    setStones((prev) => [...prev, { row: rowIndex, col: colIndex, color }]);
+  }
+
   return (
     <div
       className={styles.board}
@@ -46,12 +50,7 @@ export default function Board({
             <div
               key={colIndex}
               className={styles.rockGrid}
-              onClick={() =>
-                setStones((prev: never) => [
-                  ...prev,
-                  { row: rowIndex, col: colIndex, color },
-                ])
-              }
+              onClick={() => addStone(rowIndex, colIndex, color)}
               // CSS Grid에서 칸이 배치될 위치를 grid로 지정
               style={{
                 gridArea: [

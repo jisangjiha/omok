@@ -1,19 +1,18 @@
 .board {
-  display: flex;
-  flex-direction: column;
-}
-
-.grid {
   display: grid;
   grid-template-columns: repeat(var(--col-count), 1fr);
+  width: fit-content;
+  margin-inline: auto;
 }
 
 .rockGrid {
   display: grid;
+  width: calc(var(--col-size) * 2);
+  height: calc(var(--row-size) * 2);
   grid-template-columns: var(--col-size) var(--col-size);
   grid-template-rows: var(--row-size) var(--row-size);
 
-  border: dashed 1px rgba(0, 0, 0, 0.2);
+  /* border: dashed 1px rgba(0, 0, 0, 0.2); */
 
   --border-style: solid 1px black;
 
@@ -21,10 +20,29 @@
     border-right: var(--border-style);
     border-bottom: var(--border-style);
   }
+
   & div:nth-child(2) {
     border-bottom: var(--border-style);
   }
+
   & div:nth-child(3) {
     border-right: var(--border-style);
   }
+}
+
+.stone {
+  width: var(--col-size);
+  height: var(--row-size);
+
+  transform: translate(50%, 50%);
+  border-radius: 50%;
+}
+
+.stone.black {
+  background-color: black;
+}
+
+.stone.white {
+  background-color: white;
+  border: solid 1px black;
 }

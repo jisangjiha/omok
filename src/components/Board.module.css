@@ -31,7 +31,6 @@
 }
 
 .stone {
-  display: grid;
   width: var(--col-size);
   height: var(--row-size);
 

@@ -21,13 +21,6 @@ export default function Board({
   setStones,
   color,
 }: BoardProps) {
-  /**
-  function addStone(rowIndex: number, colIndex: number, color: Color) {
-    stones = [...stones, { row: rowIndex, col: colIndex, color: color }];
-    console.log(stones);
-  }
-  */
-
   function addStone(rowIndex: number, colIndex: number, color: Color) {
     setStones((prev) => [...prev, { row: rowIndex, col: colIndex, color }]);
   }

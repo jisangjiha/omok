@@ -54,23 +54,3 @@ export default function BoardCustom() {
     </>
   );
 }
-
-/**
- * stones={[
-          {
-            row: 0,
-            col: 0,
-            color: "black",
-          },
-          {
-            row: 0,
-            col: 1,
-            color: "white",
-          },
-          {
-            row: 1,
-            col: 1,
-            color: "black",
-          },
-        ]}
- */

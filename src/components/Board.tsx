@@ -1,12 +1,10 @@
-import { Fragment, type CSSProperties } from "react";
+import { Fragment, useState, type CSSProperties } from "react";
 import Stone from "./Stone";
-import styles from "./Board.module.css";
 import type { Color, StoneType } from "../types";
+import styles from "./Board.module.css";
 
 // 해야 할 일
-// stone 컴포넌트화
 // 놓여진 위치에 또 놓을때 불가하도록
-// 버튼이 아니라 돌 클릭할 때마다 컬러 바뀌게
 
 interface BoardProps {
   rowCount: number;
@@ -15,7 +13,7 @@ interface BoardProps {
   colSize?: number;
   stones: StoneType[];
   setStones: React.Dispatch<React.SetStateAction<StoneType[]>>;
-  color: Color;
+  setTurn: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function Board({
@@ -25,10 +23,26 @@ export default function Board({
   colSize = 25, // 열 크기(px)
   stones,
   setStones,
-  color,
+  setTurn,
 }: BoardProps) {
-  function addStone(rowIndex: number, colIndex: number, color: Color) {
-    setStones((prev) => [...prev, { row: rowIndex, col: colIndex, color }]);
+  const [stoneColor, setStoneColor] = useState<Color>("black");
+
+  const changeStoneColor = () => {
+    if (stoneColor === "black") {
+      setStoneColor("white");
+      setTurn("white");
+    } else {
+      setStoneColor("black");
+      setTurn("black");
+    }
+  };
+
+  function addStone(rowIndex: number, colIndex: number, stoneColor: Color) {
+    setStones((prev) => [
+      ...prev,
+      { row: rowIndex, col: colIndex, color: stoneColor },
+    ]);
+    changeStoneColor();
   }
 
   return (
@@ -49,7 +63,7 @@ export default function Board({
             <div
               key={colIndex}
               className={styles.rockGrid}
-              onClick={() => addStone(rowIndex, colIndex, color)}
+              onClick={() => addStone(rowIndex, colIndex, stoneColor)}
               // CSS Grid에서 칸이 배치될 위치를 grid로 지정
               style={{
                 gridArea: [

@@ -6,6 +6,10 @@ interface StoneProps {
 }
 
 export default function Stone({ stones }: StoneProps) {
+  function hasStone() {
+    alert("The stone has already been laid");
+  }
+
   return (
     <>
       {stones.map((stone, index) => (
@@ -15,6 +19,7 @@ export default function Stone({ stones }: StoneProps) {
             styles.stone,
             stone.color === "black" ? styles.black : styles.white,
           ].join(" ")}
+          onClick={() => hasStone()}
           style={{
             gridArea: [
               stone.row + 1,

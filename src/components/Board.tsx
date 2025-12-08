@@ -1,14 +1,20 @@
 import { Fragment, type CSSProperties } from "react";
+import Stone from "./Stone";
 import styles from "./Board.module.css";
-import type { Color, Stone } from "../types";
+import type { Color, StoneType } from "../types";
+
+// 해야 할 일
+// stone 컴포넌트화
+// 놓여진 위치에 또 놓을때 불가하도록
+// 버튼이 아니라 돌 클릭할 때마다 컬러 바뀌게
 
 interface BoardProps {
   rowCount: number;
   colCount: number;
   rowSize?: number;
   colSize?: number;
-  stones: Stone[];
-  setStones: React.Dispatch<React.SetStateAction<Stone[]>>;
+  stones: StoneType[];
+  setStones: React.Dispatch<React.SetStateAction<StoneType[]>>;
   color: Color;
 }
 
@@ -62,23 +68,7 @@ export default function Board({
           ))}
         </Fragment>
       ))}
-      {stones.map((stone, index) => (
-        <div
-          key={index}
-          className={[
-            styles.stone,
-            stone.color === "black" ? styles.black : styles.white,
-          ].join(" ")}
-          style={{
-            gridArea: [
-              stone.row + 1,
-              stone.col + 1,
-              stone.row + 2,
-              stone.col + 2,
-            ].join("/"),
-          }}
-        />
-      ))}
+      <Stone stones={stones} />
     </div>
   );
 }

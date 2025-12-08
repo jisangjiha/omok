@@ -29,20 +29,3 @@
     border-right: var(--border-style);
   }
 }
-
-.stone {
-  width: var(--col-size);
-  height: var(--row-size);
-
-  transform: translate(50%, 50%);
-  border-radius: 50%;
-}
-
-.stone.black {
-  background-color: black;
-}
-
-.stone.white {
-  background-color: white;
-  border: solid 1px black;
-}

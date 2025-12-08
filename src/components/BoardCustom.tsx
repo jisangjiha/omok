@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./BoardCustom.module.css";
 import Board from "./Board";
-import type { Color, Stone } from "../types";
+import type { Color, StoneType } from "../types";
 
 export default function BoardCustom() {
   // 사용자가 오목 판의 행렬 개수를 커스텀할 수 있도록 함
@@ -19,7 +19,7 @@ export default function BoardCustom() {
     }
   };
 
-  const [stones, setStones] = useState<Stone[]>([]);
+  const [stones, setStones] = useState<StoneType[]>([]);
 
   return (
     <>

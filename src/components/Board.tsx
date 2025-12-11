@@ -13,7 +13,8 @@ interface BoardProps {
   colSize?: number;
   stones: StoneType[];
   setStones: React.Dispatch<React.SetStateAction<StoneType[]>>;
-  setTurn: React.Dispatch<React.SetStateAction<string>>;
+  stoneColor: ColorType;
+  setStoneColor: React.Dispatch<React.SetStateAction<ColorType>>;
 }
 
 export default function Board({
@@ -23,17 +24,14 @@ export default function Board({
   colSize = 25, // 열 크기(px)
   stones,
   setStones,
-  setTurn,
+  stoneColor,
+  setStoneColor,
 }: BoardProps) {
-  const [stoneColor, setStoneColor] = useState<ColorType>("black");
-
   const changeStoneColor = () => {
     if (stoneColor === "black") {
       setStoneColor("white");
-      setTurn("white");
     } else {
       setStoneColor("black");
-      setTurn("black");
     }
   };
 

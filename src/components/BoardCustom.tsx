@@ -10,7 +10,7 @@ export default function BoardCustom() {
   const [colCount, setColCount] = useState(15);
 
   const [stones, setStones] = useState<StoneType[]>([]);
-  const [turn, setTurn] = useState<ColorType>("black");
+  const [stoneColor, setStoneColor] = useState<ColorType>("black");
 
   return (
     <>
@@ -32,14 +32,15 @@ export default function BoardCustom() {
             }}
           />
         </div>
-        <div>turn: {turn}</div>
+        <div>turn: {stoneColor}</div>
       </div>
       <Board
         rowCount={rowCount}
         colCount={colCount}
         stones={stones}
         setStones={setStones}
-        setTurn={setTurn}
+        stoneColor={stoneColor}
+        setStoneColor={setStoneColor}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Board from "./Board";
-import type { StoneType } from "../types";
+import type { ColorType, StoneType } from "../types";
 import styles from "./BoardCustom.module.css";
 
 export default function BoardCustom() {
@@ -10,7 +10,7 @@ export default function BoardCustom() {
   const [colCount, setColCount] = useState(15);
 
   const [stones, setStones] = useState<StoneType[]>([]);
-  const [turn, setTurn] = useState("black");
+  const [turn, setTurn] = useState<ColorType>("black");
 
   return (
     <>

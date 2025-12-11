@@ -1,6 +1,6 @@
 import { Fragment, useState, type CSSProperties } from "react";
 import Stone from "./Stone";
-import type { Color, StoneType } from "../types";
+import type { ColorType, StoneType } from "../types";
 import styles from "./Board.module.css";
 
 // 해야 할 일
@@ -25,7 +25,7 @@ export default function Board({
   setStones,
   setTurn,
 }: BoardProps) {
-  const [stoneColor, setStoneColor] = useState<Color>("black");
+  const [stoneColor, setStoneColor] = useState<ColorType>("black");
 
   const changeStoneColor = () => {
     if (stoneColor === "black") {
@@ -37,7 +37,7 @@ export default function Board({
     }
   };
 
-  function addStone(rowIndex: number, colIndex: number, stoneColor: Color) {
+  function addStone(rowIndex: number, colIndex: number, stoneColor: ColorType) {
     setStones((prev) => [
       ...prev,
       { row: rowIndex, col: colIndex, color: stoneColor },

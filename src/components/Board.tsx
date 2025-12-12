@@ -1,4 +1,4 @@
-import { Fragment, useState, type CSSProperties } from "react";
+import { Fragment, type CSSProperties } from "react";
 import Stone from "./Stone";
 import type { ColorType, StoneType } from "../types";
 import styles from "./Board.module.css";
@@ -36,10 +36,20 @@ export default function Board({
   };
 
   function addStone(rowIndex: number, colIndex: number, stoneColor: ColorType) {
+    const isDuplicate = stones.some(
+      (s) => s.row === rowIndex && s.col === colIndex
+    );
+
+    if (isDuplicate) {
+      alert("The stone has already been laid");
+      return;
+    }
+
     setStones((prev) => [
       ...prev,
       { row: rowIndex, col: colIndex, color: stoneColor },
     ]);
+
     changeStoneColor();
   }
 

@@ -35,7 +35,7 @@ export default function Board({
     }
   };
 
-  function addStone(rowIndex: number, colIndex: number, stoneColor: ColorType) {
+  function playStone(rowIndex: number, colIndex: number) {
     const isDuplicate = stones.some(
       (s) => s.row === rowIndex && s.col === colIndex
     );
@@ -71,7 +71,7 @@ export default function Board({
             <div
               key={colIndex}
               className={styles.rockGrid}
-              onClick={() => addStone(rowIndex, colIndex, stoneColor)}
+              onClick={() => playStone(rowIndex, colIndex)}
               // CSS Grid에서 칸이 배치될 위치를 grid로 지정
               style={{
                 gridArea: [

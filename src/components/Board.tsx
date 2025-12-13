@@ -1,15 +1,20 @@
 import { Fragment, type CSSProperties } from "react";
+import Stone from "./Stone";
+import type { ColorType, StoneType } from "../types";
 import styles from "./Board.module.css";
-import type { Color, Stone } from "../types";
+
+// 해야 할 일
+// 놓여진 위치에 또 놓을때 불가하도록
 
 interface BoardProps {
   rowCount: number;
   colCount: number;
   rowSize?: number;
   colSize?: number;
-  stones: Stone[];
-  setStones: React.Dispatch<React.SetStateAction<Stone[]>>;
-  color: Color;
+  stones: StoneType[];
+  setStones: React.Dispatch<React.SetStateAction<StoneType[]>>;
+  stoneColor: ColorType;
+  setStoneColor: React.Dispatch<React.SetStateAction<ColorType>>;
 }
 
 export default function Board({
@@ -19,10 +24,33 @@ export default function Board({
   colSize = 25, // 열 크기(px)
   stones,
   setStones,
-  color,
+  stoneColor,
+  setStoneColor,
 }: BoardProps) {
-  function addStone(rowIndex: number, colIndex: number, color: Color) {
-    setStones((prev) => [...prev, { row: rowIndex, col: colIndex, color }]);
+  const changeStoneColor = () => {
+    if (stoneColor === "black") {
+      setStoneColor("white");
+    } else {
+      setStoneColor("black");
+    }
+  };
+
+  function playStone(rowIndex: number, colIndex: number) {
+    const isDuplicate = stones.some(
+      (s) => s.row === rowIndex && s.col === colIndex
+    );
+
+    if (isDuplicate) {
+      alert("The stone has already been laid");
+      return;
+    }
+
+    setStones((prev) => [
+      ...prev,
+      { row: rowIndex, col: colIndex, color: stoneColor },
+    ]);
+
+    changeStoneColor();
   }
 
   return (
@@ -43,7 +71,7 @@ export default function Board({
             <div
               key={colIndex}
               className={styles.rockGrid}
-              onClick={() => addStone(rowIndex, colIndex, color)}
+              onClick={() => playStone(rowIndex, colIndex)}
               // CSS Grid에서 칸이 배치될 위치를 grid로 지정
               style={{
                 gridArea: [
@@ -62,23 +90,7 @@ export default function Board({
           ))}
         </Fragment>
       ))}
-      {stones.map((stone, index) => (
-        <div
-          key={index}
-          className={[
-            styles.stone,
-            stone.color === "black" ? styles.black : styles.white,
-          ].join(" ")}
-          style={{
-            gridArea: [
-              stone.row + 1,
-              stone.col + 1,
-              stone.row + 2,
-              stone.col + 2,
-            ].join("/"),
-          }}
-        />
-      ))}
+      <Stone stones={stones} />
     </div>
   );
 }

@@ -1,25 +1,16 @@
 import { useState } from "react";
-import styles from "./BoardCustom.module.css";
 import Board from "./Board";
-import type { Color, Stone } from "../types";
+import type { ColorType, StoneType } from "../types";
+import styles from "./BoardCustom.module.css";
 
 export default function BoardCustom() {
   // 사용자가 오목 판의 행렬 개수를 커스텀할 수 있도록 함
   // 기본 값은 렌주룰 15*15 적용
   const [rowCount, setRowCount] = useState(15);
   const [colCount, setColCount] = useState(15);
-  // 현재 턴의 사용자 돌 색 표시
-  const [turnUser, setTurnUSer] = useState<Color>("black");
 
-  const handleTurnUser = () => {
-    if (turnUser === "black") {
-      setTurnUSer("white");
-    } else {
-      setTurnUSer("black");
-    }
-  };
-
-  const [stones, setStones] = useState<Stone[]>([]);
+  const [stones, setStones] = useState<StoneType[]>([]);
+  const [stoneColor, setStoneColor] = useState<ColorType>("black");
 
   return (
     <>
@@ -41,15 +32,15 @@ export default function BoardCustom() {
             }}
           />
         </div>
-        <button onClick={handleTurnUser}>턴 넘기기</button>
-        <div>turn: {turnUser}</div>
+        <div>turn: {stoneColor}</div>
       </div>
       <Board
         rowCount={rowCount}
         colCount={colCount}
-        color={turnUser}
         stones={stones}
         setStones={setStones}
+        stoneColor={stoneColor}
+        setStoneColor={setStoneColor}
       />
     </>
   );

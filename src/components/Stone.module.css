@@ -1,8 +1,8 @@
 .stone {
   border-radius: 50%;
-  width: var(--col-size);
-  height: var(--row-size);
-  transform: translate(50%, 50%);
+  width: calc(var(--col-size) * 1.5);
+  height: calc(var(--row-size) * 1.5);
+  transform: translate(13%, 13%);
 }
 
 .stone.black {

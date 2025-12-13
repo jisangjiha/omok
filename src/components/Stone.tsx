@@ -1,28 +1,35 @@
+import type { StoneType } from "../types";
 import styles from "./Stone.module.css";
 
 interface StoneProps {
-  stoneColor: string;
-  rowIndex: number;
-  colIndex: number;
+  stones: StoneType[];
 }
 
-export default function Stone({ stoneColor, rowIndex, colIndex }: StoneProps) {
+export default function Stone({ stones }: StoneProps) {
+  function hasStone() {
+    alert("The stone has already been laid");
+  }
+
   return (
     <>
-      <div
-        className={[
-          styles.stone,
-          stoneColor === "black" ? styles.black : styles.white,
-        ].join(" ")}
-        style={{
-          gridArea: [
-            rowIndex + 1,
-            colIndex + 1,
-            rowIndex + 2,
-            colIndex + 2,
-          ].join("/"),
-        }}
-      />
+      {stones.map((stone, index) => (
+        <div
+          key={index}
+          className={[
+            styles.stone,
+            stone.color === "black" ? styles.black : styles.white,
+          ].join(" ")}
+          onClick={() => hasStone()}
+          style={{
+            gridArea: [
+              stone.row + 1,
+              stone.col + 1,
+              stone.row + 2,
+              stone.col + 2,
+            ].join("/"),
+          }}
+        />
+      ))}
     </>
   );
 }

@@ -3,6 +3,8 @@
   width: calc(var(--col-size) * 1.5);
   height: calc(var(--row-size) * 1.5);
   transform: translate(13%, 13%);
+
+  pointer-events: none;
 }
 
 .stone.black {

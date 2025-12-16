@@ -45,12 +45,69 @@ export default function Board({
       return;
     }
 
+    // 방금 놓은 돌은 다음 턴에서 stones에 추가되는 점..
     setStones((prev) => [
       ...prev,
       { row: rowIndex, col: colIndex, color: stoneColor },
     ]);
 
     changeStoneColor();
+
+    if (
+      win(rowIndex, colIndex, binaryBoard[rowIndex][colIndex], binaryBoard) ===
+      0
+    ) {
+      alert("winner is black");
+    } else {
+      alert("winner is white");
+    }
+  }
+
+  // 2로 채워지는 보드판
+  let binaryBoard = Array.from({ length: rowCount }, () =>
+    Array.from({ length: colCount }, () => 2)
+  );
+
+  // 흑0, 백1로 보드판 변경
+  for (let i = 0; i < stones.length; i++) {
+    if (stones[i].color === "black") {
+      binaryBoard[stones[i].row][stones[i].col] = 0;
+    } else if (stones[i].color === "white") {
+      binaryBoard[stones[i].row][stones[i].col] = 1;
+    }
+  }
+
+  function win(
+    x: number,
+    y: number,
+    binaryBoardColor: number,
+    binaryBoard: number[][]
+  ) {
+    let count = 0;
+
+    const dx = [-1, 1, 0, 0, -1, -1, 1, 1];
+    const dy = [0, 0, -1, 1, -1, 1, -1, 1];
+
+    for (let i = 0; i < 8; i++) {
+      let nx = x + dx[i];
+      let ny = y + dy[i];
+      let newBinaryBoardColor = binaryBoard[nx][ny];
+
+      if (
+        newBinaryBoardColor === binaryBoardColor &&
+        nx >= 0 &&
+        nx < rowCount &&
+        ny >= 0 &&
+        ny < colCount
+      ) {
+        win(nx, ny, newBinaryBoardColor, binaryBoard);
+        count++;
+      }
+    }
+
+    if (count === 5) {
+      return binaryBoardColor;
+    }
   }
 
   return (

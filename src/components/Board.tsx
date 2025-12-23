@@ -53,60 +53,49 @@ export default function Board({
 
     changeStoneColor();
 
-    if (
-      win(rowIndex, colIndex, binaryBoard[rowIndex][colIndex], binaryBoard) ===
-      0
-    ) {
+    if (chedckWin(rowIndex, colIndex, 0) === "black") {
       alert("winner is black");
     } else {
       alert("winner is white");
     }
   }
 
-  // 2로 채워지는 보드판
-  let binaryBoard = Array.from({ length: rowCount }, () =>
-    Array.from({ length: colCount }, () => 2)
+  // 의도
+  // 오목판을 토대로 2차원 배열 생성
+  let coloredBoard = Array.from({ length: rowCount }, () =>
+    Array.from({ length: colCount }, () => "")
   );
 
-  // 흑0, 백1로 보드판 변경
   for (let i = 0; i < stones.length; i++) {
     if (stones[i].color === "black") {
-      binaryBoard[stones[i].row][stones[i].col] = 0;
+      coloredBoard[stones[i].row][stones[i].col] = "black";
     } else if (stones[i].color === "white") {
-      binaryBoard[stones[i].row][stones[i].col] = 1;
+      coloredBoard[stones[i].row][stones[i].col] = "white";
     }
   }
 
-  function win(
-    x: number,
-    y: number,
-    binaryBoardColor: number,
-    binaryBoard: number[][]
-  ) {
-    let count = 0;
-
+  // 의도
+  // 새로 놓은 x, y좌표의 상하좌우와 대각선을 탐색하면서 보드판[x][y] 컬러와 같으면 재귀
+  // count === 5이면 승리 조건 완성
+  function chedckWin(x: number, y: number, count: number) {
     const dx = [-1, 1, 0, 0, -1, -1, 1, 1];
     const dy = [0, 0, -1, 1, -1, 1, -1, 1];
 
     for (let i = 0; i < 8; i++) {
       let nx = x + dx[i];
       let ny = y + dy[i];
-      let newBinaryBoardColor = binaryBoard[nx][ny];
 
-      if (
-        newBinaryBoardColor === binaryBoardColor &&
+      if (count === 5) {
+        return coloredBoard[x][y];
+      } else if (
+        coloredBoard[nx][ny] === coloredBoard[x][y] &&
         nx >= 0 &&
         nx < rowCount &&
         ny >= 0 &&
         ny < colCount
       ) {
-        win(nx, ny, newBinaryBoardColor, binaryBoard);
-        count++;
+        chedckWin(nx, ny, count++);
       }
-    }
-
-    if (count === 5) {
-      return binaryBoardColor;
     }
   }
 

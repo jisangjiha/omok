@@ -53,16 +53,16 @@ export default function Board({
 
     changeStoneColor();
 
-    if (chedckWin(rowIndex, colIndex, 0) === "black") {
-      alert("winner is black");
-    } else {
-      alert("winner is white");
+    if (chedckWin(rowIndex, colIndex, stoneColor)) {
+      if (stoneColor === "black") {
+        alert("winner is black");
+      } else {
+        alert("winner is white");
+      }
     }
   }
 
-  // 의도
-  // 오목판을 토대로 2차원 배열 생성
-  let coloredBoard = Array.from({ length: rowCount }, () =>
+  const coloredBoard = Array.from({ length: rowCount + 1 }, () =>
     Array.from({ length: colCount }, () => "")
   );
 
@@ -74,29 +74,53 @@ export default function Board({
     }
   }
 
-  // 의도
-  // 새로 놓은 x, y좌표의 상하좌우와 대각선을 탐색하면서 보드판[x][y] 컬러와 같으면 재귀
-  // count === 5이면 승리 조건 완성
-  function chedckWin(x: number, y: number, count: number) {
-    const dx = [-1, 1, 0, 0, -1, -1, 1, 1];
-    const dy = [0, 0, -1, 1, -1, 1, -1, 1];
+  function chedckWin(x: number, y: number, stoneColor: string) {
+    const dx = [1, 0, 1, -1]; // 가로, 세로, 상승대각선, 하강대각선
+    const dy = [0, 1, 1, 1]; // (어차피 좌우=가로, 상하=세로 ...이므로 방향만 지정)
 
-    for (let i = 0; i < 8; i++) {
-      let nx = x + dx[i];
-      let ny = y + dy[i];
+    for (let dir = 0; dir < 4; dir++) {
+      let count = 1; // 돌 한 개부터 카운팅
 
-      if (count === 5) {
-        return coloredBoard[x][y];
-      } else if (
-        coloredBoard[nx][ny] === coloredBoard[x][y] &&
-        nx >= 0 &&
-        nx < rowCount &&
-        ny >= 0 &&
-        ny < colCount
-      ) {
-        chedckWin(nx, ny, count++);
+      // 순방향
+      for (let i = 1; i < 5; i++) {
+        const nx = x + dx[dir] * i;
+        const ny = y + dy[dir] * i;
+
+        if (
+          nx < 0 ||
+          nx >= rowSize ||
+          ny < 0 ||
+          ny >= colSize ||
+          coloredBoard[nx][ny] !== stoneColor
+        ) {
+          break;
+        }
+        count++;
+      }
+
+      // 역방향
+      for (let i = 1; i < 5; i++) {
+        const nx = x - dx[dir] * i;
+        const ny = y - dy[dir] * i;
+
+        if (
+          nx < 0 ||
+          nx >= rowSize ||
+          ny < 0 ||
+          ny >= colSize ||
+          coloredBoard[nx][ny] !== stoneColor
+        ) {
+          break;
+        }
+        count++;
+      }
+
+      if (count >= 5) {
+        return true;
       }
     }
+
+    return false;
   }
 
   return (

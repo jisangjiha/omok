@@ -59,6 +59,7 @@ export default function Board({
       } else {
         alert("winner is white");
       }
+      setStones([]);
     }
   }
 

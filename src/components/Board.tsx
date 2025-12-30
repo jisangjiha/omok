@@ -53,7 +53,7 @@ export default function Board({
 
     changeStoneColor();
 
-    if (chedckWin(rowIndex, colIndex, stoneColor)) {
+    if (checkWin(rowIndex, colIndex, stoneColor)) {
       if (stoneColor === "black") {
         alert("winner is black");
       } else {
@@ -74,7 +74,7 @@ export default function Board({
     }
   }
 
-  function chedckWin(x: number, y: number, stoneColor: string) {
+  function checkWin(x: number, y: number, stoneColor: ColorType) {
     const dx = [1, 0, 1, -1]; // 가로, 세로, 상승대각선, 하강대각선
     const dy = [0, 1, 1, 1]; // (어차피 좌우=가로, 상하=세로 ...이므로 방향만 지정)
 

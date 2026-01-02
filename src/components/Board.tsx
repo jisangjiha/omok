@@ -55,11 +55,18 @@ export default function Board({
 
     if (checkWin(rowIndex, colIndex, stoneColor)) {
       if (stoneColor === "black") {
-        alert("winner is black");
+        setTimeout(() => {
+          alert("winner is black");
+          setStones([]);
+          setStoneColor("black");
+        }, 100);
       } else {
-        alert("winner is white");
+        setTimeout(() => {
+          alert("winner is white");
+          setStones([]);
+          setStoneColor("black");
+        }, 100);
       }
-      setStones([]);
     }
   }
 

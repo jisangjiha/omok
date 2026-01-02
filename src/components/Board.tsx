@@ -76,8 +76,8 @@ export default function Board({
   }
 
   function checkWin(x: number, y: number, stoneColor: ColorType) {
-    const dx = [1, 0, 1, -1]; // 가로, 세로, 상승대각선, 하강대각선
-    const dy = [0, 1, 1, 1]; // (어차피 좌우=가로, 상하=세로 ...이므로 방향만 지정)
+    const dx = [0, 1, 1, 1]; // 가로, 세로, 상승대각선, 하강대각선
+    const dy = [1, 0, 1, -1]; // (어차피 좌우=가로, 상하=세로 ...이므로 방향만 지정)
 
     for (let dir = 0; dir < 4; dir++) {
       let count = 1; // 돌 한 개부터 카운팅

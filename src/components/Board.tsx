@@ -59,13 +59,13 @@ export default function Board({
           alert("winner is black");
           setStones([]);
           setStoneColor("black");
-        }, 100);
+        }, 0);
       } else {
         setTimeout(() => {
           alert("winner is white");
           setStones([]);
           setStoneColor("black");
-        }, 100);
+        }, 0);
       }
     }
   }

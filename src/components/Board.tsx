@@ -45,12 +45,90 @@ export default function Board({
       return;
     }
 
+    // 방금 놓은 돌은 다음 턴에서 stones에 추가되는 점..
     setStones((prev) => [
       ...prev,
       { row: rowIndex, col: colIndex, color: stoneColor },
     ]);
 
     changeStoneColor();
+
+    if (checkWin(rowIndex, colIndex, stoneColor)) {
+      if (stoneColor === "black") {
+        setTimeout(() => {
+          alert("winner is black");
+          setStones([]);
+          setStoneColor("black");
+        }, 0);
+      } else {
+        setTimeout(() => {
+          alert("winner is white");
+          setStones([]);
+          setStoneColor("black");
+        }, 0);
+      }
+    }
+  }
+
+  const coloredBoard = Array.from({ length: rowCount + 1 }, () =>
+    Array.from({ length: colCount }, () => "")
+  );
+
+  for (let i = 0; i < stones.length; i++) {
+    if (stones[i].color === "black") {
+      coloredBoard[stones[i].row][stones[i].col] = "black";
+    } else if (stones[i].color === "white") {
+      coloredBoard[stones[i].row][stones[i].col] = "white";
+    }
+  }
+
+  function checkWin(x: number, y: number, stoneColor: ColorType) {
+    const dx = [0, 1, 1, 1]; // 가로, 세로, 상승대각선, 하강대각선
+    const dy = [1, 0, 1, -1]; // (어차피 좌우=가로, 상하=세로 ...이므로 방향만 지정)
+
+    for (let dir = 0; dir < 4; dir++) {
+      let count = 1; // 돌 한 개부터 카운팅
+
+      // 순방향
+      for (let i = 1; i < 5; i++) {
+        const nx = x + dx[dir] * i;
+        const ny = y + dy[dir] * i;
+
+        if (
+          nx < 0 ||
+          nx >= rowSize ||
+          ny < 0 ||
+          ny >= colSize ||
+          coloredBoard[nx][ny] !== stoneColor
+        ) {
+          break;
+        }
+        count++;
+      }
+
+      // 역방향
+      for (let i = 1; i < 5; i++) {
+        const nx = x - dx[dir] * i;
+        const ny = y - dy[dir] * i;
+
+        if (
+          nx < 0 ||
+          nx >= rowSize ||
+          ny < 0 ||
+          ny >= colSize ||
+          coloredBoard[nx][ny] !== stoneColor
+        ) {
+          break;
+        }
+        count++;
+      }
+
+      if (count >= 5) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   return (

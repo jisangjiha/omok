@@ -89,38 +89,23 @@ export default function Board({
     for (let dir = 0; dir < 4; dir++) {
       let count = 1; // 돌 한 개부터 카운팅
 
-      // 순방향
-      for (let i = 1; i < 5; i++) {
-        const nx = x + dx[dir] * i;
-        const ny = y + dy[dir] * i;
+      // 방금 놓은 돌 기준 모든 방향의 4개 확인
+      for (const sign of [1, -1]) {
+        for (let i = 1; i < 5; i++) {
+          const nx = x + dx[dir] * i * sign;
+          const ny = y + dy[dir] * i * sign;
 
-        if (
-          nx < 0 ||
-          nx >= rowSize ||
-          ny < 0 ||
-          ny >= colSize ||
-          coloredBoard[nx][ny] !== stoneColor
-        ) {
-          break;
+          if (
+            nx < 0 ||
+            nx >= rowSize ||
+            ny < 0 ||
+            ny >= colSize ||
+            coloredBoard[nx][ny] !== stoneColor
+          ) {
+            break;
+          }
+          count++;
         }
-        count++;
-      }
-
-      // 역방향
-      for (let i = 1; i < 5; i++) {
-        const nx = x - dx[dir] * i;
-        const ny = y - dy[dir] * i;
-
-        if (
-          nx < 0 ||
-          nx >= rowSize ||
-          ny < 0 ||
-          ny >= colSize ||
-          coloredBoard[nx][ny] !== stoneColor
-        ) {
-          break;
-        }
-        count++;
       }
 
       if (count >= 5) {
@@ -130,6 +115,9 @@ export default function Board({
 
     return false;
   }
+
+  // 렌주룰에서 백과 다르게 흑은 3-3, 4-4, 장목 금지
+  // function checkBlack() {}
 
   return (
     <div

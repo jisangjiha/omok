@@ -14,6 +14,8 @@ export default function Stone({ stones }: StoneProps) {
           className={[
             styles.stone,
             stone.color === "black" ? styles.black : styles.white,
+            // 마지막(가장 최근) 착수 강조
+            index === stones.length - 1 ? styles.last : "",
           ].join(" ")}
           style={{
             gridArea: [

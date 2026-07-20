@@ -14,6 +14,15 @@ export default function BoardCustom() {
 
   return (
     <>
+      <Board
+        rowCount={rowCount}
+        colCount={colCount}
+        stones={stones}
+        setStones={setStones}
+        stoneColor={stoneColor}
+        setStoneColor={setStoneColor}
+      />
+      {/* 컨트롤(판 크기·차례)은 보드 아래에 배치 */}
       <div className={styles.info}>
         <div className={styles.boardCustom}>
           <input
@@ -34,14 +43,6 @@ export default function BoardCustom() {
         </div>
         <div>turn: {stoneColor}</div>
       </div>
-      <Board
-        rowCount={rowCount}
-        colCount={colCount}
-        stones={stones}
-        setStones={setStones}
-        stoneColor={stoneColor}
-        setStoneColor={setStoneColor}
-      />
     </>
   );
 }

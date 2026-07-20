@@ -131,14 +131,20 @@ export default function Board({
     return false;
   }
 
+  // 보드가 데스크탑 한 화면에 들어오도록 셀 크기를 뷰포트에 맞춰 축소(원본 크기를 상한으로).
+  // rowSize/colSize(px)는 checkWin 경계 계산에도 쓰이므로 값 자체는 그대로 두고 CSS 변수만 반응형으로 지정.
+  const cellSize = `min(${colSize}px, calc((100vh - 240px) / ${
+    rowCount * 2
+  }), calc((100vw - 120px) / ${colCount * 2}))`;
+
   return (
     <div
       className={styles.board}
       style={
         {
           "--col-count": colCount,
-          "--row-size": `${rowSize}px`,
-          "--col-size": `${colSize}px`,
+          "--row-size": cellSize,
+          "--col-size": cellSize,
         } as CSSProperties
       }
     >
@@ -168,6 +174,26 @@ export default function Board({
           ))}
         </Fragment>
       ))}
+      {/* 화점(星): 기본 15×15 판에서만 표시.
+          그 외 크기(13×13, 19×19 등)는 화점 좌표 규칙이 달라 별도 계산 로직이 필요 — 추후 구현. */}
+      {rowCount === 15 &&
+        colCount === 15 &&
+        (
+          [
+            [3, 3],
+            [3, 11],
+            [7, 7],
+            [11, 3],
+            [11, 11],
+          ] as const
+        ).map(([r, c]) => (
+          <div
+            key={`star-${r}-${c}`}
+            className={styles.star}
+            style={{ gridArea: [r + 1, c + 1, r + 2, c + 2].join("/") }}
+          />
+        ))}
+
       <Stone stones={stones} />
     </div>
   );

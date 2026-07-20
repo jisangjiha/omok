@@ -2,16 +2,49 @@
   border-radius: 50%;
   width: calc(var(--col-size) * 1.5);
   height: calc(var(--row-size) * 1.5);
+  /* TODO(추후): 돌이 교차점 정중앙보다 살짝 치우침 — translate(13%,13%) 대신 정중앙 정렬(place-self:center 등) 검토. */
   transform: translate(13%, 13%);
 
+  position: relative;
   pointer-events: none;
+  box-shadow: 0 3px 4px rgba(60, 48, 26, 0.28);
+  animation: stoneIn 0.26s ease-out both;
+}
+
+@keyframes stoneIn {
+  from {
+    opacity: 0;
+    transform: translate(13%, 13%) scale(0.84);
+  }
+  to {
+    opacity: 1;
+    transform: translate(13%, 13%) scale(1);
+  }
 }
 
 .stone.black {
-  background-color: black;
+  background: radial-gradient(circle at 37% 31%, #4a4a4a 0%, #242424 42%, #0a0a0a 100%);
 }
 
 .stone.white {
-  background-color: white;
-  border: solid 1px black;
+  background: radial-gradient(circle at 37% 31%, #ffffff 0%, #f4efe4 64%, #ddd2bd 100%);
+  box-shadow:
+    0 3px 4px rgba(60, 48, 26, 0.28),
+    inset 0 0 0 1px rgba(120, 100, 60, 0.28);
+}
+
+/* 마지막 착수 강조 링 — 돌 바깥으로 얇은 악센트 테두리 */
+.stone.last::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--accent, #7d5b46);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stone {
+    animation: none;
+  }
 }
